@@ -9,7 +9,7 @@ def display_variable():
     return my_var
 
 dag = DAG(dag_id="variable_dag", start_date=datetime(2021, 1, 1),
-    schedule_interval='@daily')
+    schedule_interval='@daily', catchup=False)
 
 task = PythonOperator(task_id='display_variable', python_callable=display_variable, dag=dag)
 
