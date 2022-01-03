@@ -1,7 +1,5 @@
-#from airflow.hooks.postgres_hook import PostgresHook
-#from airflow.hooks.S3_hook import S3Hook
-from airflow.providers.amazon.aws.hooks.s3 import S3Hook
-from airflow.providers.postgres.operators.postgres import PostgresOperator
+from airflow.hooks.postgres_hook import PostgresHook
+from airflow.hooks.S3_hook import S3Hook
 from airflow.models import BaseOperator 
 from airflow.utils.decorators import apply_defaults
 from airflow.exceptions import AirflowException
@@ -55,16 +53,17 @@ class S3ToPostgresTransfer(BaseOperator):
   
     def execute(self, context):
 
-        print('Into the custom operator S3ToPostgresTransfer')
+        self.log.info('Into the custom operator S3ToPostgresTransfer')
         
         # Create an instances to connect S3 and Postgres DB.
         self.log.info(self.aws_conn_postgres_id)   
         
-        #self.pg_hook = PostgresOperator(postgre_conn_id = self.aws_conn_postgres_id)
-        self.s3 = S3Hook(aws_conn_id = self.aws_conn_id, verify = self.verify)
+        self.pg_hook = PostgresHook(postgre_conn_id = self.aws_conn_postgres_id)
+        self.log.info("Init PostgresHook..")
+        # self.s3 = S3Hook(aws_conn_id = self.aws_conn_id, verify = self.verify)
 
-        self.log.info("Downloading S3 file")
-        self.log.info(self.s3_key + ', ' + self.s3_bucket)
+        # self.log.info("Downloading S3 file")
+        # self.log.info(self.s3_key + ', ' + self.s3_bucket)
 
         # # Validate if the file source exist or not in the bucket.
         # if self.wildcard_match:

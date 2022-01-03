@@ -4,7 +4,8 @@ from airflow.operators.dummy_operator import DummyOperator
 from airflow.operators.python_operator import PythonOperator
 
 def print_hello():
-    return 'Hello world from first Airflow DAG!'
+    welcome = 'Hello world from first Airflow DAG!'
+    return welcome
 
 dag = DAG('hello_world', 
           description='Hello World DAG',
