@@ -52,6 +52,8 @@ class S3ToPostgresTransfer(BaseOperator):
         self.parameters = parameters
   
     def execute(self, context):
+
+        print('Into the custom operator S3ToPostgresTransfer')
         
         # Create an instances to connect S3 and Postgres DB.
         self.log.info(self.aws_conn_postgres_id)   
