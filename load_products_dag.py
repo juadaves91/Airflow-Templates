@@ -4,7 +4,7 @@ import airflow.utils.dates
 from airflow import DAG
 
 # Operators; we need this to operate!
-from custom_modules.dag_s3_to_postgres import S3ToPostgresTransfer
+from custom_modules.operator_s3_to_postgres import S3ToPostgresTransfer
 
 default_args = {
     'owner': 'juan.escobar',
@@ -12,11 +12,13 @@ default_args = {
     'start_date': airflow.utils.dates.days_ago(1)
 }
 
-dag = DAG('dag_insert_data', default_args = default_args, schedule_interval = '@daily')
+dag = DAG('dag_insert_data', 
+          default_args = default_args,
+          schedule_interval = '@daily')
 
 process_dag = S3ToPostgresTransfer(
     task_id = 'dag_s3_to_postgres',
-    schema = 'bootcampdb',
+    schema =  'bootcampdb', #'public'
     table= 'products',
     s3_bucket = 'bootcamp-wl-de-airflow',
     s3_key =  'products.csv',
