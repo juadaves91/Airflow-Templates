@@ -1,6 +1,6 @@
 -- Table: bootcampdb.products
 
-DROP TABLE bootcampdb.products;
+DROP TABLE IF EXISTS bootcampdb.products;
 
 CREATE TABLE IF NOT EXISTS bootcampdb.products
 (
