@@ -12,23 +12,23 @@ def print_welcome():
     return 'Welcome from custom operator - Airflow DAG!'
 
 dag = DAG('dag_insert_data', 
-          description='Hello World DAG',
-          schedule_interval='0 12 * * *',
-          start_date=datetime(2017, 3, 20), catchup=False)
+          description='Inser Data from CSV To Postgres',
+          schedule_interval='@once',
+          start_date=datetime(2021, 10, 1))
 
 welcome_operator = PythonOperator(task_id='welcome_task', 
-                                python_callable=print_welcome, 
-                                dag=dag)
+                                  python_callable=print_welcome, 
+                                  dag=dag)
 
-process_dag = S3ToPostgresTransfer(
-    task_id = 'dag_s3_to_postgres',
-    schema =  'bootcampdb', #'public'
-    table= 'products',
-    s3_bucket = 's3-data-bootcamp',
-    s3_key =  'products.csv',
-    aws_conn_postgres_id = 'postgres_default',
-    aws_conn_id = 'aws_default',   
-    dag = dag
+s3_to_postgres_operator = S3ToPostgresTransfer(
+                            task_id = 'dag_s3_to_postgres',
+                            schema =  'bootcampdb', #'public'
+                            table= 'products',
+                            s3_bucket = 's3-data-bootcamp',
+                            s3_key =  'products.csv',
+                            aws_conn_postgres_id = 'postgres_default',
+                            aws_conn_id = 'aws_default',   
+                            dag = dag
 )
 
-welcome_operator >> process_dag
+welcome_operator >> s3_to_postgres_operator
