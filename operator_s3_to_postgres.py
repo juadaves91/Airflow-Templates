@@ -60,7 +60,7 @@ class S3ToPostgresTransfer(BaseOperator):
         # Create an instances to connect S3 and Postgres DB.
         self.log.info(self.aws_conn_postgres_id)   
         
-        self.pg_hook = PostgresOperator(postgre_conn_id = self.aws_conn_postgres_id)
+        #self.pg_hook = PostgresOperator(postgre_conn_id = self.aws_conn_postgres_id)
         self.s3 = S3Hook(aws_conn_id = self.aws_conn_id, verify = self.verify)
 
         self.log.info("Downloading S3 file")
