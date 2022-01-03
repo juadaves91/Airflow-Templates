@@ -4,7 +4,7 @@ import airflow.utils.dates
 from airflow import DAG
 
 # Operators; we need this to operate!
-from custom_modules.operator_s3_to_postgres import S3ToPostgresTransfer
+from operator_s3_to_postgres import S3ToPostgresTransfer
 
 default_args = {
     'owner': 'juan.escobar',
