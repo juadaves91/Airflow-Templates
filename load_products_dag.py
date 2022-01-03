@@ -33,4 +33,4 @@ s3_to_postgres_operator = S3ToPostgresTransfer(
                             dag = dag
 )
 
-welcome_operator >> s3_to_postgres_operator
+welcome_operator.set_downstream(s3_to_postgres_operator)
