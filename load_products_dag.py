@@ -4,7 +4,7 @@ from datetime import datetime
 from airflow import DAG
 
 # Operators; we need this to operate!
-# from operator_s3_to_postgres import S3ToPostgresTransfer
+from operator_s3_to_postgres import S3ToPostgresTransfer
 from airflow.operators.python_operator import PythonOperator
 
 
@@ -20,15 +20,15 @@ welcome_operator = PythonOperator(task_id='welcome_task',
                                 python_callable=print_welcome, 
                                 dag=dag)
 
-# process_dag = S3ToPostgresTransfer(
-#     task_id = 'dag_s3_to_postgres',
-#     schema =  'bootcampdb', #'public'
-#     table= 'products',
-#     s3_bucket = 's3-data-bootcamp',
-#     s3_key =  'products.csv',
-#     aws_conn_postgres_id = 'postgres_default',
-#     aws_conn_id = 'aws_default',   
-#     dag = dag
-# )
+process_dag = S3ToPostgresTransfer(
+    task_id = 'dag_s3_to_postgres',
+    schema =  'bootcampdb', #'public'
+    table= 'products',
+    s3_bucket = 's3-data-bootcamp',
+    s3_key =  'products.csv',
+    aws_conn_postgres_id = 'postgres_default',
+    aws_conn_id = 'aws_default',   
+    dag = dag
+)
 
-welcome_operator 
+welcome_operator >> process_dag
