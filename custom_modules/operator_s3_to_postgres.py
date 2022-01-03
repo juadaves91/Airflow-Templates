@@ -1,7 +1,7 @@
 # from airflow.hooks.postgres_hook import PostgresHook
 # from airflow.hooks.S3_hook import S3Hook
-from airflow.providers.postgres.hooks.postgres.PostgresHook import PostgresHook
-from airflow.providers.amazon.aws.hooks.s3.S3Hook import S3Hook 
+#from airflow.providers.postgres.hooks.postgres.PostgresHook import PostgresHook
+from airflow.providers.amazon.aws.hooks.s3.S3Hook import S3Hook  
 from airflow.models import BaseOperator 
 from airflow.utils.decorators import apply_defaults
 from airflow.exceptions import AirflowException
