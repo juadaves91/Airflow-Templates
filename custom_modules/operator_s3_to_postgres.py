@@ -1,5 +1,5 @@
-# from airflow.hooks.postgres_hook import PostgresHook
-# from airflow.hooks.S3_hook import S3Hook
+from airflow.hooks.postgres_hook import PostgresHook
+from airflow.hooks.S3_hook import S3Hook
 #from airflow.providers.postgres.hooks.postgres.PostgresHook import PostgresHook
 #from airflow.providers.amazon.aws.hooks.s3.S3Hook import S3Hook  
 from airflow.models import BaseOperator 
