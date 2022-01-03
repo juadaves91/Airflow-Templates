@@ -1,4 +1,4 @@
-import airflow.utils.dates
+from datetime import datetime
 
 # The DAG object; we'll need this to instantiate a DAG
 from airflow import DAG
@@ -6,15 +6,11 @@ from airflow import DAG
 # Operators; we need this to operate!
 from operator_s3_to_postgres import S3ToPostgresTransfer
 
-default_args = {
-    'owner': 'juan.escobar',
-    'depends_on_past': False,
-    'start_date': airflow.utils.dates.days_ago(1)
-}
 
 dag = DAG('dag_insert_data', 
-          default_args = default_args,
-          schedule_interval = '@daily')
+          description='Hello World DAG',
+          schedule_interval='0 12 * * *',
+          start_date=datetime(2017, 3, 20), catchup=False)
 
 process_dag = S3ToPostgresTransfer(
     task_id = 'dag_s3_to_postgres',
