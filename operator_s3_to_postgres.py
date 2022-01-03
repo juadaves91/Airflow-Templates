@@ -1,7 +1,7 @@
 #from airflow.hooks.postgres_hook import PostgresHook
 #from airflow.hooks.S3_hook import S3Hook
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
-from airflow.hooks.postgres_hook import PostgresHook
+from airflow.providers.postgres.operators.postgres import PostgresOperator
 from airflow.models import BaseOperator 
 from airflow.utils.decorators import apply_defaults
 from airflow.exceptions import AirflowException
@@ -60,7 +60,7 @@ class S3ToPostgresTransfer(BaseOperator):
         # Create an instances to connect S3 and Postgres DB.
         self.log.info(self.aws_conn_postgres_id)   
         
-        self.pg_hook = PostgresHook(postgre_conn_id = self.aws_conn_postgres_id)
+        self.pg_hook = PostgresOperator(postgre_conn_id = self.aws_conn_postgres_id)
         self.s3 = S3Hook(aws_conn_id = self.aws_conn_id, verify = self.verify)
 
         self.log.info("Downloading S3 file")
