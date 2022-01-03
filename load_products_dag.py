@@ -14,7 +14,8 @@ def print_welcome():
 dag = DAG('dag_insert_data', 
           description='Inser Data from CSV To Postgres',
           schedule_interval='@once',
-          start_date=datetime(2021, 10, 1))
+          start_date=datetime(2021, 10, 1),
+          catchup=False)
 
 welcome_operator = PythonOperator(task_id='welcome_task', 
                                   python_callable=print_welcome, 
